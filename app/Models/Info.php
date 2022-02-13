@@ -4,13 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class Info extends Model
 {
-    protected $table = 'admin';
+    protected $table = 'info';
 
     protected $hidden = [
-        'created_at', 'updated_at', 'password'
+        'created_at', 'updated_at'
     ];
-
-
 }

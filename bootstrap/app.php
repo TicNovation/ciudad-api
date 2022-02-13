@@ -27,6 +27,9 @@ $app->withFacades();
 
 $app->withEloquent();
 
+class_alias('Illuminate\Support\Facades\App', 'App');
+
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -72,13 +75,14 @@ $app->configure('app');
 |
 */
 
-// $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
-// ]);
+$app->middleware([
+    App\Http\Middleware\CorsMiddleware::class
+]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+   'auth' => App\Http\Middleware\Authenticate::class,
+   'jwt.device' => App\Http\Middleware\DeviceMiddleware::class
+]);
 
 /*
 |--------------------------------------------------------------------------
