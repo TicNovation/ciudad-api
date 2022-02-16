@@ -18,6 +18,7 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'api'], function() use ($router) {
+    $router->post('companies/filter', ['uses' => 'CompanyController@filter']);
 
     $router->group(['middleware' => 'jwt.device'], function() use ($router){
         
@@ -41,6 +42,8 @@ $router->group(['prefix' => 'api'], function() use ($router) {
 
         $router->post('companies', ['uses' => 'CompanyController@list']);
         $router->post('companies/search', ['uses' => 'CompanyController@search']);
+        $router->post('companies/fullsearch', ['uses' => 'CompanyController@fullsearch']);
+        $router->post('companies/filter', ['uses' => 'CompanyController@filter']);
 
         $router->post('company/addresses', ['uses' => 'CompanyAddressController@list']);
 
