@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Job;
+use App\Models\JobNotification;
 use App\Helpers\UtilsHelper;
 use Validator;
 
@@ -21,11 +22,18 @@ class JobController extends Controller {
 
         unset($jobsA['from'], $jobsA['last_page'], $jobsA['links'], $jobsA['first_page_url'], $jobsA['last_page_url'], $jobsA['next_page_url'], $jobsA['path'], $jobsA['per_page'], $jobsA['prev_page_url']);
 
+        $notification;
+
+        if($request->is_first == 1){
+            $notification = JobNotification::where('id_firebase', $request->id_firebase)->first();
+        }
+
         if(is_object($jobs)){
             $code = 200;
             $data = array(
                 'msg'=>'Correcto',
-                'data'=>$jobsA
+                'data'=>$jobsA,
+                'notification'=>$notification
             );
         }else{
             $code = 400;
@@ -47,6 +55,71 @@ class JobController extends Controller {
 
         return response()->json(['jobs' => $jobs], 200);
 
+    }
+
+    public function find(Request $request){
+
+        $job = Job::find($request->id);
+
+        if(is_object($job)){
+            $code = 200;
+            $data = array(
+                'msg'=>'Correcto',
+                'job'=>$job
+            );
+        }else{
+            $code = 400;
+            $data = array(
+                'msg'=>'No se encontró la oferta de empleo'
+            );
+        }
+
+        return response()->json($data, $code);
+
+    }
+
+    public function enable(Request $request){
+
+        try {
+            JobNotification::insert(
+                array(
+                    'id_firebase'=>$request->id_firebase,
+                    'city'=>$request->city,
+                )
+            );
+            $code = 200;
+            $data = array(
+                'msg'=>'Correcto',
+            );
+
+        } catch (\Throwable $th) {
+            $code = 400;
+            $data = array(
+                'msg'=>$th
+            );
+        }
+
+        return response()->json($data, $code);
+
+    }
+
+    public function disable(Request $request){
+        try {
+            JobNotification::where('id_firebase', $request->id_firebase)->delete();
+
+            $code = 200;
+            $data = array(
+                'msg'=>'Correcto',
+            );
+
+        } catch (\Throwable $th) {
+            $code = 400;
+            $data = array(
+                'msg'=>$th
+            );
+        }
+
+        return response()->json($data, $code);
     }
 
 }

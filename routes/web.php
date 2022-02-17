@@ -32,6 +32,9 @@ $router->group(['prefix' => 'api'], function() use ($router) {
 
         $router->post('jobs', ['uses' => 'JobController@list']);
         $router->post('jobs/search', ['uses' => 'JobController@search']);
+        $router->post('job/find', ['uses' => 'JobController@find']);
+        $router->post('job/notifications/enable', ['uses' => 'JobController@enable']);
+        $router->post('job/notifications/disable', ['uses' => 'JobController@disable']);
 
         $router->post('places', ['uses' => 'PlaceController@list']);
         $router->post('places/search', ['uses' => 'PlaceController@search']);
