@@ -18,10 +18,11 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'api'], function() use ($router) {
-    $router->post('companies/filter', ['uses' => 'CompanyController@filter']);
 
     $router->group(['middleware' => 'jwt.device'], function() use ($router){
         
+        $router->post('user', ['uses' => 'UserController@save']);
+
         $router->post('categories', ['uses' => 'CategoryController@list']);
 
         $router->post('subcategories', ['uses' => 'SubCategoryController@list']);
@@ -53,6 +54,7 @@ $router->group(['prefix' => 'api'], function() use ($router) {
         $router->post('company/schedule/list', ['uses' => 'CompanyScheduleController@find']);
         
         $router->post('company/menu/list', ['uses' => 'CompanyMenuController@list']);
+        
     });
 
 });
