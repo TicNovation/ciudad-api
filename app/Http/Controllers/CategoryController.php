@@ -11,7 +11,7 @@ class CategoryController extends Controller {
 
     public function list(Request $request){
 
-        $categories = Category::where('active', 1)->get()->map(function($query){
+        $categories = Category::where('active', 1)->where('city', $request->city)->get()->map(function($query){
             $query->image = env('AWS_URL').$query->image;
             return $query;
         });
