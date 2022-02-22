@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Banner;
 use App\Helpers\UtilsHelper;
 use Validator;
 
@@ -16,11 +17,17 @@ class CategoryController extends Controller {
             return $query;
         });
 
+        $banner = Banner::where('city', $request->city)->get()->map(function($query){
+            $query->image = env('AWS_URL').$query->image;
+            return $query;
+        });
+
         if(is_object($categories)){
             $code = 200;
             $data = array(
                 'msg'=>'Correcto',
-                'categories'=>$categories
+                'categories'=>$categories,
+                'banner'=>$banner
             );
         }else{
             $code = 400;
