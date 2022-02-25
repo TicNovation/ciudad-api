@@ -43,6 +43,7 @@ $router->group(['prefix' => 'api'], function() use ($router) {
         $router->post('contacts', ['uses' => 'ContactController@list']);
 
         $router->post('info/find', ['uses' => 'InfoController@find']);
+        $router->post('info/list', ['uses' => 'InfoController@list']);
 
         $router->post('companies', ['uses' => 'CompanyController@list']);
         $router->post('companies/search', ['uses' => 'CompanyController@search']);
