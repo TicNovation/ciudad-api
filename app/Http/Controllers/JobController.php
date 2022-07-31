@@ -12,7 +12,7 @@ class JobController extends Controller {
     
     public function list(Request $request){
 
-        $jobs = Job::where('city', $request->city)->where('active', 1)->paginate(20);
+        $jobs = Job::where('city', $request->city)->where('active', 1)->orderBy('id', 'desc')->paginate(20);
         $jobs->getCollection()->transform(function($item, $key)
         {   $item->image = env('AWS_URL').$item->image;
             return $item;

@@ -12,7 +12,7 @@ class NotiController extends Controller {
     public function list(Request $request){
         try {
 
-            $notis = Noti::where('city', $request->city)->where('active', 1)->paginate(20);
+            $notis = Noti::where('city', $request->city)->where('active', 1)->orderBy('id', 'desc')->paginate(20);
             $notis->getCollection()->transform(function($item, $key)
             {   $item->image = env('AWS_URL').$item->image;
                 return $item;
