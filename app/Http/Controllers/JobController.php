@@ -12,7 +12,7 @@ class JobController extends Controller {
     
     public function list(Request $request){
 
-        $jobs = Job::where('city', $request->city)->where('active', 1)->orderBy('id', 'desc')->paginate(20);
+        $jobs = Job::where('city', $request->city)->where('active', 1)->orderBy('id', 'desc')->paginate(10);
         $jobs->getCollection()->transform(function($item, $key)
         {   $item->image = env('AWS_URL').$item->image;
             return $item;
@@ -22,7 +22,7 @@ class JobController extends Controller {
 
         unset($jobsA['from'], $jobsA['last_page'], $jobsA['links'], $jobsA['first_page_url'], $jobsA['last_page_url'], $jobsA['next_page_url'], $jobsA['path'], $jobsA['per_page'], $jobsA['prev_page_url']);
 
-        $notification;
+        $notification = null;
 
         if($request->is_first == 1){
             $notification = JobNotification::where('id_firebase', $request->id_firebase)->first();

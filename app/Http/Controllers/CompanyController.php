@@ -19,7 +19,7 @@ class CompanyController extends Controller {
                 $query->select('id', 'name');
             }])->with(['subcategory' => function($query){
                 $query->select('id', 'name');
-            }])->paginate(20);
+            }])->paginate(15);
             $companies->getCollection()->transform(function($item, $key)
             {   $item->image = env('AWS_URL').$item->image;
                 $item->is_open = $item->open == null ? 0 : 1;
@@ -31,7 +31,7 @@ class CompanyController extends Controller {
     
             unset($compA['from'], $compA['last_page'], $compA['links'], $compA['first_page_url'], $compA['last_page_url'], $compA['next_page_url'], $compA['path'], $compA['per_page'], $compA['prev_page_url']);
             
-            $subcategories;
+            $subcategories = null;
 
             if($request->is_first == 1){
                 $subcategories = SubCategory::where('id_category', $request->id_category)->where('active', 1)->get();

@@ -12,7 +12,7 @@ class PlaceController extends Controller
     
     public function list(Request $request){
 
-        $places = Place::where('city', $request->city)->where('active', 1)->paginate(20);
+        $places = Place::where('city', $request->city)->where('active', 1)->orderBy('id', 'desc')->paginate(10);
         $places->getCollection()->transform(function($item, $key)
         {   $item->image = env('AWS_URL').$item->image;
             return $item;

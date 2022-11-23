@@ -52,7 +52,6 @@ class DeviceMiddleware
         } catch(ExpiredException $e) {
             $auth = true;
         } catch(Exception $e) {
-            echo $e;
             return response()->json(['message' => 'Dispositivo no autorizado'], 401);
         }
 
