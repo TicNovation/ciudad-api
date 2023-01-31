@@ -22,18 +22,18 @@ class JobController extends Controller {
 
         unset($jobsA['from'], $jobsA['last_page'], $jobsA['links'], $jobsA['first_page_url'], $jobsA['last_page_url'], $jobsA['next_page_url'], $jobsA['path'], $jobsA['per_page'], $jobsA['prev_page_url']);
 
-        $notification = null;
+        //$notification = null;
 
-        if($request->is_first == 1){
+        /*if($request->is_first == 1){
             $notification = JobNotification::where('id_firebase', $request->id_firebase)->first();
-        }
+        }*/
 
         if(is_object($jobs)){
             $code = 200;
             $data = array(
                 'msg'=>'Correcto',
                 'data'=>$jobsA,
-                'notification'=>$notification
+                //'notification'=>$notification
             );
         }else{
             $code = 400;
@@ -78,7 +78,7 @@ class JobController extends Controller {
 
     }
 
-    public function enable(Request $request){
+    /*public function enable(Request $request){
 
         try {
             JobNotification::insert(
@@ -101,9 +101,9 @@ class JobController extends Controller {
 
         return response()->json($data, $code);
 
-    }
+    }*/
 
-    public function disable(Request $request){
+    /*public function disable(Request $request){
         try {
             JobNotification::where('id_firebase', $request->id_firebase)->delete();
 
@@ -120,6 +120,6 @@ class JobController extends Controller {
         }
 
         return response()->json($data, $code);
-    }
+    }*/
 
 }
