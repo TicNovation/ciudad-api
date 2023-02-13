@@ -46,6 +46,7 @@ $router->group(['prefix' => 'api'], function() use ($router) {
         $router->post('info/list', ['uses' => 'InfoController@list']);
 
         $router->post('companies', ['uses' => 'CompanyController@list']);
+        $router->post('companies/all', ['uses' => 'CompanyController@all']);
         $router->post('companies/search', ['uses' => 'CompanyController@search']);
         $router->post('companies/fullsearch', ['uses' => 'CompanyController@fullsearch']);
         $router->post('companies/filter', ['uses' => 'CompanyController@filter']);
