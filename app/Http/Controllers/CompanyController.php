@@ -60,6 +60,7 @@ class CompanyController extends Controller {
         return response()->json($data, $code);
 
     }
+    
 
     public function all(Request $request){
 

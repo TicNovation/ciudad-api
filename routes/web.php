@@ -19,7 +19,9 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'api'], function() use ($router) {
 
-    $router->group(['middleware' => 'jwt.device'], function() use ($router){
+    //$router->get('companies', ['uses' => 'CompanyController@list']);
+
+   // $router->group(['middleware' => 'jwt.device'], function() use ($router){
         
         //$router->post('user', ['uses' => 'UserController@save']);
 
@@ -57,6 +59,6 @@ $router->group(['prefix' => 'api'], function() use ($router) {
         
         $router->post('company/menu/list', ['uses' => 'CompanyMenuController@list']);
         
-    });
+    //});
 
 });
